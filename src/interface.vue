@@ -32,6 +32,10 @@ export default defineComponent({
 			type: Boolean,
 			default: false,
 		},
+		percent: {
+			type: Boolean,
+			default: false,
+		},
 		prefix: {
 			type: String,
 			default: '',
@@ -50,7 +54,7 @@ export default defineComponent({
 				value = parseFloat(value);
 				if (isNaN(value)) return null;
 			}
-			return (props.prefix ?? '') + formatter.format(value) + (props.suffix ?? '');
+			return props.percent ? formatter.format(value)*100 + " %" : (props.prefix ?? '') + formatter.format(value) + (props.suffix ?? '');
 		});
 
 		const focus = ref(false);

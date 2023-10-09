@@ -9,6 +9,21 @@ export default defineInterface({
 	component: InterfaceComponent,
 	options: [
 		{
+			field: 'percent',
+			name: 'Percent',
+			type: 'boolean',
+			meta: {
+				width: 'full',
+				interface: 'boolean',
+				display: "boolean",
+				special: ["cast-boolean"]
+			},
+			schema: {
+				data_type: "boolean",
+				default_value: false
+			}
+		},
+		{
 			field: 'prefix',
 			name: 'Prefix',
 			type: 'string',
@@ -18,6 +33,26 @@ export default defineInterface({
 				options: {
 					trim: false,
 				},
+				conditions: [
+					{
+						name: "Check",
+						rule: {
+							_and: [
+								{
+									percent: {
+										_eq: true
+									}
+								}
+							]
+						},
+						readonly: true,
+						hidden: true,
+						options: {
+							refreshInterval: 10,
+							sortDirection: "asc"
+						}
+					}
+				]
 			},
 		},
 		{
@@ -30,6 +65,26 @@ export default defineInterface({
 				options: {
 					trim: false,
 				},
+				conditions: [
+					{
+						name: "Check",
+						rule: {
+							_and: [
+								{
+									percent: {
+										_eq: true
+									}
+								}
+							]
+						},
+						readonly: true,
+						hidden: true,
+						options: {
+							refreshInterval: 10,
+							sortDirection: "asc"
+						}
+					}
+				]
 			},
 		},
 	],
