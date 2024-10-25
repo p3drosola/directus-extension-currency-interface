@@ -13,15 +13,30 @@ export default defineInterface({
 			name: 'Percent',
 			type: 'boolean',
 			meta: {
-				width: 'full',
+				width: 'half',
 				interface: 'boolean',
-				display: "boolean",
-				special: ["cast-boolean"]
+				display: 'boolean',
+				special: ['cast-boolean'],
 			},
 			schema: {
-				data_type: "boolean",
-				default_value: false
-			}
+				data_type: 'boolean',
+				default_value: false,
+			},
+		},
+		{
+			field: 'cents',
+			name: 'Cents',
+			type: 'boolean',
+			meta: {
+				width: 'half',
+				interface: 'boolean',
+				display: 'boolean',
+				special: ['cast-boolean'],
+			},
+			schema: {
+				data_type: 'boolean',
+				default_value: false,
+			},
 		},
 		{
 			field: 'prefix',
@@ -35,24 +50,24 @@ export default defineInterface({
 				},
 				conditions: [
 					{
-						name: "Check",
+						name: 'Check',
 						rule: {
 							_and: [
 								{
 									percent: {
-										_eq: true
-									}
-								}
-							]
+										_eq: true,
+									},
+								},
+							],
 						},
 						readonly: true,
 						hidden: true,
 						options: {
 							refreshInterval: 10,
-							sortDirection: "asc"
-						}
-					}
-				]
+							sortDirection: 'asc',
+						},
+					},
+				],
 			},
 		},
 		{
@@ -67,24 +82,24 @@ export default defineInterface({
 				},
 				conditions: [
 					{
-						name: "Check",
+						name: 'Check',
 						rule: {
 							_and: [
 								{
 									percent: {
-										_eq: true
-									}
-								}
-							]
+										_eq: true,
+									},
+								},
+							],
 						},
 						readonly: true,
 						hidden: true,
 						options: {
 							refreshInterval: 10,
-							sortDirection: "asc"
-						}
-					}
-				]
+							sortDirection: 'asc',
+						},
+					},
+				],
 			},
 		},
 	],

@@ -3,7 +3,7 @@
 	<div v-else>
 		<div class="currency-interface" :class="{ focus }">
 			<v-input
-				:model-value="value"
+				:model-value="inputValue"
 				:type="inputType"
 				@focus="focus = true"
 				@blur="focus = false"
@@ -36,6 +36,10 @@ export default defineComponent({
 			type: Boolean,
 			default: false,
 		},
+		cents: {
+			type: Boolean,
+			default: false,
+		},
 		prefix: {
 			type: String,
 			default: '',
@@ -54,7 +58,18 @@ export default defineComponent({
 				value = parseFloat(value);
 				if (isNaN(value)) return null;
 			}
-			return props.percent ? formatter.format(value)*100 + " %" : (props.prefix ?? '') + formatter.format(value) + (props.suffix ?? '');
+			if (props.percent) {
+				value = value *100
+			}
+			else if (props.cents) {
+				value = value / 100;
+			}
+
+			let formatted = (props.prefix ?? '') + formatter.format(value) + (props.suffix ?? '');
+			if (props.percent) {
+				formatted = formatted + '%'
+			}
+			return formatted;
 		});
 
 		const focus = ref(false);
@@ -64,16 +79,28 @@ export default defineComponent({
 			return 'text';
 		});
 
+		const inputValue = computed(() => {
+			if (props.cents) {
+				return parseFloat('' +props.value) / 100;
+			}
+			return props.value;
+		});
+
+		function handleChange(value: string): void {
+			if (props.cents) {
+				emit('input', parseFloat(value) * 100);
+			} else {
+				emit('input', value);
+			}
+		}
+
 		return {
+			inputValue,
 			formattedValue,
 			focus,
 			inputType,
 			handleChange,
 		};
-
-		function handleChange(value: string): void {
-			emit('input', value);
-		}
 	},
 });
 </script>
